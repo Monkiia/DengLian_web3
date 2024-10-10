@@ -7,7 +7,7 @@ def calculate_time(expected_input):
     # print expected input
     print("Expected input top Hash: ", expected_input)
     start = time.time()
-    username = "sschenx"
+    username = "crazychat"
     nounce = 0
     # sha256
     while True:
@@ -22,3 +22,4 @@ def calculate_time(expected_input):
 
 calculate_time("0000")
 calculate_time("00000")
+calculate_time("000000")

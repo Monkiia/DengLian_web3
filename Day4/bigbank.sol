@@ -104,7 +104,6 @@ contract BigBank is Bank {
 
     // BigBank 会 check 资金是否大于 minimal_amount eth
     receive() external payable override depositReq {
-        require(msg.value >= minimal_amount, "Need at least 0.001 ETH");
         deposit(msg.sender, msg.value);
     }
 }

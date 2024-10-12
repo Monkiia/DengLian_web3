@@ -104,11 +104,12 @@ contract BigBank is Bank {
 
     // BigBank 会 check 资金是否大于 minimal_amount eth
     receive() external payable override depositReq {
+        require(msg.value >= minimal_amount, "Need at least 0.001 ETH");
         deposit(msg.sender, msg.value);
     }
 }
 
-contract Ownable {
+contract Admin {
     address private admin;
     // 构造函数：在部署时，管理员地址设为部署者地址
     constructor() {
@@ -125,8 +126,8 @@ contract Ownable {
 
     // 合约从银行取钱打到合约地址 big bank money -> contract address
     // 注意 这个取钱不是从合约地址打到合约管理员 NOT contract address -> admin address
-    function withdraw(BigBank bankContract) public onlyAdmin {
-        bankContract.withdraw();
+    function withdraw(IBank bank) public onlyAdmin {
+        bank.withdraw();
     }
 
 }

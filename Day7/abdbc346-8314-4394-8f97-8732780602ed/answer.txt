@@ -1,0 +1,68 @@
+Q1:
+
+code link: https://github.com/Monkiia/DengLian_web3/blob/main/Day6/nftContract.sol
+
+My NFT contract: https://sepolia.etherscan.io/address/0x7c1cf47d4aaa85c2cb1326ef3680a2d86d204aad
+
+My NFT minted: https://sepolia.etherscan.io/tx/0x5dc5807271501723c3456a3658e27da3b2d6af5f6b07a7254fe2dace73e461a4
+
+check on opensea: https://testnets.opensea.io/assets/sepolia/0x7c1cf47d4aaa85c2cb1326ef3680a2d86d204aad/0
+
+{
+  "name": "My Unique NFT",
+  "description": "This is a unique NFT that showcases a special image.",
+  "image": "ipfs://QmPWtMG4ivqdBWgJKV9t2pUkLx9yCseJjV2AyUVhKupx7T",
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Blue"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    }
+  ]
+}
+
+
+Q2:
+
+code link: nftMarket.sol
+
+DLC Token V2: 0x8054D8310DdF35A21d3F07Fc8d91DD8F8a4c146D
+NFTMarket Contract: https://sepolia.etherscan.io/address/0x8054d8310ddf35a21d3f07fc8d91dd8f8a4c146d
+with DLC V2 token
+
+Round1:
+
+NFTMaketplace being approved by NFT Owner:
+https://sepolia.etherscan.io/tx/0xbe9656177fc7c604b5c15cb5cfad1d1782b72b6f7ae3c8ef4a4c276bf18dca9a
+
+
+Round2:
+
+NFT Owner list NFT on NFTMarket with 88 DLC Token:
+https://sepolia.etherscan.io/tx/0x64bdc60708afa6918bcab1977481204e48c3505c7b28b96d3d7e9f1baa25c523
+
+
+Round3:
+
+EOA account 2 approve NFTMarket with 1000 then buy the NFT: 
+https://sepolia.etherscan.io/tx/0x63322339a06b36566b26969003f8ec89986adb9bcd09d597ea5d0cba322e706a
+https://sepolia.etherscan.io/tx/0xb72669d696f6c333f228baf797ae26de719f7855289648b65df55bfb5d8bd828
+
+
+Round4:
+
+EOA account 2 approve NFTMaketplace to manage the NFT and then relist our NFT:
+approve: https://sepolia.etherscan.io/tx/0x56a968bd15f19a0a3fa4a3cc260c1199c17725410cbcb8c6d50b4c55cf597edd
+list: https://sepolia.etherscan.io/tx/0xf65cfbed79e06e55937000cdb86253e739e4abd24d679661c99a72407f895c7c
+
+
+Round5:
+
+EOA Account 1 transfer 100 to the Market Contract address and get the NFT:
+https://sepolia.etherscan.io/tx/0x7a1462c7895abb4f3810940fc29018728fecae0480b0e73dcbd299a7a8cafb03
+
+
+

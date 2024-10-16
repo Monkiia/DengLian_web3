@@ -1,0 +1,18 @@
+DLCV2(extension token address) history https://sepolia.etherscan.io/address/0x8054d8310ddf35a21d3f07fc8d91dd8f8a4c146d
+bankv2 address https://sepolia.etherscan.io/address/0x5392dec99c815062197a5f5818ee56dc7a0c525f
+
+Round 1:
+EOA approve bankv2 address for 10000 DLCV2
+
+Round 2:
+EOA transfer 1000 DLCV2 to bankv2 address
+
+Round 3:
+
+EOA call bankv2 check balance, see 1000 DLCV2
+
+Round 4:
+
+directly call tokenReceived, got error as it's only whitelist DLCV2 smart contract address
+
+

@@ -27,7 +27,7 @@ check on opensea: https://testnets.opensea.io/assets/sepolia/0x7c1cf47d4aaa85c2c
 
 Q2:
 
-code link: nftMarket.sol
+code link: https://github.com/Monkiia/DengLian_web3/blob/main/Day7/abdbc346-8314-4394-8f97-8732780602ed/nftMarket.sol
 
 DLC Token V2: 0x8054D8310DdF35A21d3F07Fc8d91DD8F8a4c146D
 NFTMarket Contract: https://sepolia.etherscan.io/address/0x8054d8310ddf35a21d3f07fc8d91dd8f8a4c146d

@@ -1,9 +1,0 @@
-[submodule "Day7/learn_foundry/hello_foundry/lib/forge-std"]
-	path = Day7/learn_foundry/hello_foundry/lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
-[submodule "lib/openzeppelin-contracts"]
-	path = lib/openzeppelin-contracts
-	url = https://github.com/OpenZeppelin/openzeppelin-contracts
-[submodule "Day7/learn_foundry/hello_foundry/lib/openzeppelin-contracts"]
-	path = Day7/learn_foundry/hello_foundry/lib/openzeppelin-contracts
-	url = https://github.com/OpenZeppelin/openzeppelin-contracts

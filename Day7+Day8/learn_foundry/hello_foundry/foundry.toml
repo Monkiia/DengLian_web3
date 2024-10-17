@@ -1,9 +1,0 @@
-[profile.default]
-src = "src"
-out = "out"
-libs = ["lib"]
-
-[rpc_endpoints]
-sepolia = "https://sepolia.infura.io/v3/5fcb3e617f334f3baa1fd2aef2cb4ee5"
-
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

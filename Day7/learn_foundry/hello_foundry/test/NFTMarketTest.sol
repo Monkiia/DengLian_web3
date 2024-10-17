@@ -175,4 +175,57 @@ contract NFTMarketTest is Test {
         vm.stopPrank();
     }
 
+        // --- Fuzz Testing for Random Prices and Random Buyer ---
+    function testFuzzListingAndBuying(uint256 price) public {
+        // We limit the price to between 0.01 and 10000 DLC tokens (scaled by 1e18 for decimals)
+        price = bound(price, 0.01 * 10 ** 18, 10000 * 10 ** 18);
+
+        // Setup a random buyer address
+        address randomBuyer = vm.addr(uint256(keccak256(abi.encodePacked(block.timestamp))));
+
+        // Fund the random buyer with some ETH and tokens for transaction costs
+        vm.deal(randomBuyer, 1 ether);
+        DLCtoken.transfer(randomBuyer, price);
+
+        // Seller lists the NFT at the random price
+        vm.startPrank(seller);
+        myNFT.approve(address(nftMarket), 0); // Approve marketplace to transfer NFT
+        nftMarket.list(0, price); // List the NFT for `price` DLC tokens
+        vm.stopPrank();
+
+        // Buyer buys the NFT
+        vm.startPrank(randomBuyer);
+        DLCtoken.approve(address(nftMarket), price);
+        nftMarket.buyNFT(0); // Call the buyNFT function to purchase the NFT with tokenId 0
+
+        // Verify that the random buyer now owns the NFT
+        assertEq(myNFT.ownerOf(0), randomBuyer);
+
+        // Ensure that the listing is removed after the purchase
+        (address listedSeller, uint256 listedPrice) = nftMarket.getListing(0);
+        assertEq(listedSeller, address(0)); // Listing should no longer exist
+        assertEq(listedPrice, 0);
+
+        vm.stopPrank();
+    }
+
+    // --- Immutability Test for Token Holding ---
+    function testMarketContractDoesNotHoldTokens() public {
+        // Seller lists the NFT for sale
+        vm.startPrank(seller);
+        myNFT.approve(address(nftMarket), 1); // Approve the marketplace for the NFT with tokenId 1
+        nftMarket.list(1, 100 * 10 ** 18); // List the NFT for 100 DLC tokens
+        vm.stopPrank();
+
+        // Buyer approves and buys the NFT
+        vm.startPrank(buyer);
+        DLCtoken.approve(address(nftMarket), 100 * 10 ** 18);
+        nftMarket.buyNFT(1); // Buyer purchases the NFT
+        vm.stopPrank();
+
+        // Assert that the marketplace does not hold any DLC tokens
+        uint256 marketBalance = DLCtoken.balanceOf(address(nftMarket));
+        assertEq(marketBalance, 0); // The contract should not hold any tokens
+    }
+
 }

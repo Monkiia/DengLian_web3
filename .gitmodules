@@ -1,0 +1,3 @@
+[submodule "w3d1/multi-sig-wallet/lib/forge-std"]
+	path = w3d1/multi-sig-wallet/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

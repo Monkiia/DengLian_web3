@@ -7,3 +7,6 @@
 [submodule "w3d3/EIP712_Project/lib/openzeppelin-contracts"]
 	path = w3d3/EIP712_Project/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "w4d1/permit2/lib/forge-std"]
+	path = w4d1/permit2/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

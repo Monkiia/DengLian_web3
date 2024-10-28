@@ -13,3 +13,6 @@
 [submodule "w4d1/permit2/lib/solmate"]
 	path = w4d1/permit2/lib/solmate
 	url = https://github.com/Rari-Capital/solmate
+[submodule "w4d1/tokenFactory/lib/forge-std"]
+	path = w4d1/tokenFactory/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

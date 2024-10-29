@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract InscriptionToken is ERC20, Ownable {
     uint public totalSupplyLimit; // Total limit of tokens allowed to be minted
-    uint public perMint;          // Amount of tokens minted per mint call
-    uint public mintedAmount;      // Tracks the total amount minted so far
+    uint public perMint; // Amount of tokens minted per mint call
+    uint public mintedAmount; // Tracks the total amount minted so far
 
     /**
      * @dev Initializes the ERC20 token with supply limits and assigns ownership.
@@ -34,7 +34,10 @@ contract InscriptionToken is ERC20, Ownable {
      * @param to The address to receive the minted tokens
      */
     function mint(address to) public onlyOwner {
-        require(mintedAmount + perMint <= totalSupplyLimit, "Exceeds total supply limit");
+        require(
+            mintedAmount + perMint <= totalSupplyLimit,
+            "Exceeds total supply limit"
+        );
 
         _mint(to, perMint); // Mint tokens to the specified address
         mintedAmount += perMint; // Update the total minted amount

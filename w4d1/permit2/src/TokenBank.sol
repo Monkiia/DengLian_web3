@@ -21,8 +21,8 @@ contract TokenBank {
         uint256 nonce,
         bytes calldata signature
     ) external {
-        ISignatureTransfer.PermitTransferFrom memory permit = 
-            ISignatureTransfer.PermitTransferFrom({
+        ISignatureTransfer.PermitTransferFrom memory permit = ISignatureTransfer
+            .PermitTransferFrom({
                 permitted: ISignatureTransfer.TokenPermissions({
                     token: address(token),
                     amount: amount
@@ -30,13 +30,14 @@ contract TokenBank {
                 nonce: nonce,
                 deadline: deadline
             });
-        
-        ISignatureTransfer.SignatureTransferDetails memory transferDetails = 
-            ISignatureTransfer.SignatureTransferDetails({
-                to: address(this),
-                requestedAmount: amount
-            });
-        
+
+        ISignatureTransfer.SignatureTransferDetails
+            memory transferDetails = ISignatureTransfer
+                .SignatureTransferDetails({
+                    to: address(this),
+                    requestedAmount: amount
+                });
+
         console2.log("MsgSender address = ", address(msg.sender));
 
         permit2.permitTransferFrom(

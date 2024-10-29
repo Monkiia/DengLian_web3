@@ -7,8 +7,8 @@ import {InscriptionToken} from "./InscriptionToken.sol";
 contract InscriptionFactory {
     struct TokenInfo {
         address tokenAddress; // Address of the deployed token
-        uint totalSupply;     // Total supply of the token
-        uint perMint;         // Amount to mint per call
+        uint totalSupply; // Total supply of the token
+        uint perMint; // Amount to mint per call
     }
 
     // Mapping to store deployed tokens' information
@@ -16,7 +16,12 @@ contract InscriptionFactory {
     address[] public allTokens; // Array to keep track of all tokens created
 
     // Event emitted when a new token is deployed
-    event InscriptionDeployed(address tokenAddress, string symbol, uint totalSupply, uint perMint);
+    event InscriptionDeployed(
+        address tokenAddress,
+        string symbol,
+        uint totalSupply,
+        uint perMint
+    );
 
     /**
      * @dev Deploys a new ERC20 token and stores its information.
@@ -25,9 +30,19 @@ contract InscriptionFactory {
      * @param perMint The amount to mint per `mintInscription` call
      * @return The address of the newly deployed token
      */
-    function deployInscription(string memory symbol, uint totalSupply, uint perMint) public returns (address) {
+    function deployInscription(
+        string memory symbol,
+        uint totalSupply,
+        uint perMint
+    ) public returns (address) {
         // Deploy a new InscriptionToken instance
-        InscriptionToken newToken = new InscriptionToken(symbol, symbol, totalSupply, perMint, address(this));
+        InscriptionToken newToken = new InscriptionToken(
+            symbol,
+            symbol,
+            totalSupply,
+            perMint,
+            address(this)
+        );
         address tokenAddress = address(newToken);
 
         // Store the new token's details in the mapping
@@ -44,7 +59,10 @@ contract InscriptionFactory {
      * @param tokenAddr The address of the token contract to mint from
      */
     function mintInscription(address tokenAddr) public {
-        require(tokens[tokenAddr].tokenAddress != address(0), "Token not found");
+        require(
+            tokens[tokenAddr].tokenAddress != address(0),
+            "Token not found"
+        );
 
         // Mint tokens by calling the mint function in the token contract
         InscriptionToken token = InscriptionToken(tokenAddr);

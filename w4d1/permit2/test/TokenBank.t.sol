@@ -13,23 +13,25 @@ contract TokenBankTest is Test {
     TokenBank public bank;
     MyPermitToken public token;
     ISignatureTransfer public permit2;
-    
+
     uint256 constant PRIVATE_KEY = 0x1234;
     address user;
-    bytes32 public constant _PERMIT_TRANSFER_FROM_TYPEHASH = keccak256(
-        "PermitTransferFrom(TokenPermissions permitted,address spender,uint256 nonce,uint256 deadline)TokenPermissions(address token,uint256 amount)"
-    );
-    bytes32 public constant _TOKEN_PERMISSIONS_TYPEHASH = keccak256("TokenPermissions(address token,uint256 amount)");
+    bytes32 public constant _PERMIT_TRANSFER_FROM_TYPEHASH =
+        keccak256(
+            "PermitTransferFrom(TokenPermissions permitted,address spender,uint256 nonce,uint256 deadline)TokenPermissions(address token,uint256 amount)"
+        );
+    bytes32 public constant _TOKEN_PERMISSIONS_TYPEHASH =
+        keccak256("TokenPermissions(address token,uint256 amount)");
 
     function setUp() public {
         permit2 = ISignatureTransfer(address(new Permit2()));
         token = new MyPermitToken();
         bank = new TokenBank(address(token), address(permit2));
-        
+
         user = vm.addr(PRIVATE_KEY);
         console2.log("User initialized: address", vm.toString(user));
         token.transfer(user, 1000e18);
-        
+
         vm.startPrank(user);
         token.approve(address(permit2), type(uint256).max);
         vm.stopPrank();
@@ -37,25 +39,27 @@ contract TokenBankTest is Test {
 
     function testDepositWithPermit2() public {
         vm.startPrank(user);
-        
+
         uint256 depositAmount = 100e18;
         uint256 nonce = 0;
         uint256 deadline = block.timestamp + 1 days;
 
-        ISignatureTransfer.PermitTransferFrom memory permit = ISignatureTransfer.PermitTransferFrom({
-            permitted: ISignatureTransfer.TokenPermissions({
-                token: address(token),
-                amount: depositAmount
-            }),
-            nonce: nonce,
-            deadline: deadline
-        });
-        
-        ISignatureTransfer.SignatureTransferDetails memory transferDetails = 
-            ISignatureTransfer.SignatureTransferDetails({
-                to: address(bank),
-                requestedAmount: depositAmount
+        ISignatureTransfer.PermitTransferFrom memory permit = ISignatureTransfer
+            .PermitTransferFrom({
+                permitted: ISignatureTransfer.TokenPermissions({
+                    token: address(token),
+                    amount: depositAmount
+                }),
+                nonce: nonce,
+                deadline: deadline
             });
+
+        ISignatureTransfer.SignatureTransferDetails
+            memory transferDetails = ISignatureTransfer
+                .SignatureTransferDetails({
+                    to: address(bank),
+                    requestedAmount: depositAmount
+                });
 
         bytes memory sig = getPermitSignature(
             permit,
@@ -65,12 +69,7 @@ contract TokenBankTest is Test {
             address(bank)
         );
 
-        try bank.depositWithPermit2(
-            depositAmount,
-            deadline,
-            nonce,
-            sig
-        ) {
+        try bank.depositWithPermit2(depositAmount, deadline, nonce, sig) {
             console2.log("\nDeposit succeeded");
             assertEq(token.balanceOf(address(bank)), depositAmount);
             assertEq(bank.balanceOf(user), depositAmount);
@@ -101,13 +100,24 @@ contract TokenBankTest is Test {
         console2.log("Spender = ", vm.toString(spender));
         bytes32 tokenPermissionsHash = _hashTokenPermissions(permit.permitted);
         bytes32 dataHash = keccak256(
-            abi.encode(_PERMIT_TRANSFER_FROM_TYPEHASH, tokenPermissionsHash, spender, permit.nonce, permit.deadline)
+            abi.encode(
+                _PERMIT_TRANSFER_FROM_TYPEHASH,
+                tokenPermissionsHash,
+                spender,
+                permit.nonce,
+                permit.deadline
+            )
         );
-        bytes32 msgHash = keccak256(abi.encodePacked("\x19\x01", domainSeparator, dataHash));
+        bytes32 msgHash = keccak256(
+            abi.encodePacked("\x19\x01", domainSeparator, dataHash)
+        );
 
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, msgHash);
         sig = abi.encodePacked(r, s, v);
-        console2.log("TokenPermissionsHash:", vm.toString(tokenPermissionsHash));
+        console2.log(
+            "TokenPermissionsHash:",
+            vm.toString(tokenPermissionsHash)
+        );
         console2.log("DataHash:", vm.toString(dataHash));
         console2.log("MsgHash:", vm.toString(msgHash));
         console2.log("DomainSeparator:", vm.toString(domainSeparator));
@@ -118,12 +128,9 @@ contract TokenBankTest is Test {
         console2.log("Spender address:", vm.toString(spender));
     }
 
-
-    function _hashTokenPermissions(ISignatureTransfer.TokenPermissions memory permitted)
-        private
-        pure
-        returns (bytes32)
-    {
+    function _hashTokenPermissions(
+        ISignatureTransfer.TokenPermissions memory permitted
+    ) private pure returns (bytes32) {
         return keccak256(abi.encode(_TOKEN_PERMISSIONS_TYPEHASH, permitted));
     }
 }

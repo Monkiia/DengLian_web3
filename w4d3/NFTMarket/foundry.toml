@@ -2,5 +2,12 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+# Use the environment variables in your default profile
+rpc_url = "${SEPOLIA_RPC_URL}"          # Pulls the RPC URL for Sepolia from .env
+private_key = "${PRIVATE_KEY}"           # Pulls your private key from .env
+etherscan_api_key = "${ETHERSCAN_API_KEY}" # Etherscan API key for contract verification
+[profile.dotenv]
+# This tells Forge to automatically load environment variables from the .env file
+file = ".env"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

@@ -36,7 +36,7 @@ export default function NFTCard(props: { nft: NFTInfo }) {
       <div className="card-body">
         <h2 className="card-title text-sm">{props.nft.name}</h2>
         <p className="text-sm max-w-60  text-base-content">
-          {metaRes.data.description}
+          {"Some NFT"}
         </p>
       </div>
     </div>

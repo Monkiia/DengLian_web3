@@ -12,7 +12,7 @@ contract S2NFT is ERC721Enumerable {
   uint256 public immutable MAX_SUPPLY;
 
   constructor(string memory name_, string memory symbol_, string memory baseURI_, uint256 maxSupply_)
-    ERC721(name_, symbol_)
+    ERC721('DLNFT', 'DLNFT')
   {
     _BASE_URI = baseURI_;
     MAX_SUPPLY = maxSupply_;

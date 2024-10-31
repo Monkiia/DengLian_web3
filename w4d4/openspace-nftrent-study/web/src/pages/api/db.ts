@@ -46,6 +46,9 @@ export async function saveOrder(
   nft: NFTInfo,
   signature: string
 ) {
+  console.log("Chain ID:", chainId);
+  console.log("Order:", order);
+  console.log("NFT:", nft);
   // TODO: 验证提交的订单信息是否合法
   // 先删除已存在的记录
   await sql`delete from rentout_orders where chain_id = ${chainId} and nft_ca = ${

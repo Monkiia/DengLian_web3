@@ -1,11 +1,11 @@
 {
   "sepolia": {
     "MT": {
-      "address": "0x190873386803Db026fd185936Dbf2A6E81457810",
+      "address": "0xC4349cd94B1f1e0a7EdAe56C4A485E2C2A62B490",
       "startBlock": 5789746
     },
     "ZK01": {
-      "address": "0x0a5B53232685B8291255C3EA2e6D30987143F2e8"
+      "address": "0xC4349cd94B1f1e0a7EdAe56C4A485E2C2A62B490"
     }
   }
 }

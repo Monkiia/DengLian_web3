@@ -13,7 +13,7 @@ export const projectId = '12faa030cbc78ba00bc156bb4ce97d0c';
 if (!projectId) throw new Error("Project ID is not defined");
 
 // 来自于已经部署的 thegraph：
-export const RENFT_GRAPHQL_URL = 'https://api.studio.thegraph.com/query/93114/openspaces4nftmarket/version/latest';
+export const RENFT_GRAPHQL_URL = 'https://api.studio.thegraph.com/query/93114/nftrental/version/latest';
 
 if (!RENFT_GRAPHQL_URL) throw new Error("RENFT_GRAPHQL_URL is not defined");
 
@@ -55,11 +55,15 @@ import { type TypedData } from "viem";
 export const PROTOCOL_CONFIG = {
   [Number(sepolia.id)]: {
     domain: {
-      // TODO: 配置EIP-712签名域名信息
+      name: "RenftMarket",
+      version: "1",
+      chainId: Number(sepolia.id),
+      verifyingContract: "0x5DCe9D56EF2981F72dc685268c3F84dB65C1e5C5", // 替换为实际部署的合约地址
     },
-    rentoutMarket: "0x000...000", // TODO: 配置出租市场合约地址
+    rentoutMarket: "0x5DCe9D56EF2981F72dc685268c3F84dB65C1e5C5", // NFT 出租市场的实际合约地址
   },
 } as const;
+
 
 // EIP-721 签名类型
 export const eip721Types = {

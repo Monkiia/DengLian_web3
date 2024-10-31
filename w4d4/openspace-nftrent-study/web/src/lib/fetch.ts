@@ -1,6 +1,4 @@
 import useSWR from "swr";
-import { RENFT_GRAPHQL_URL, DEFAULT_NFT_IMG_URL } from "@/config";
-import { NFTInfo } from "@/types";
 import {
   useAccount,
   useReadContract,
@@ -177,14 +175,22 @@ export function useFethcMarketListing() {
 
 export function useWriteApproveTx(nft: NFTInfo | null) {
   const { data: hash, isPending, error, writeContract } = useWriteContract();
+  console.log("useWriteApproveTx:", hash, isPending, error);
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({ hash });
   const mkt = useMarketContract();
+  console.log("useWriteApproveTx:", mkt);
 
   // 读合约：获取是否已经授权
   // https://wagmi.sh/react/api/hooks/useReadContract#type-inference
-  // 或者检查是否有整个集合授权给MKT合约
-  var approveTo = undefined;
+
+  // 读取 NFT 是否授权给市场合约
+  const { data: approveTo } = useReadContract({
+    address: nft?.ca as Address, // NFT 合约地址
+    abi: ERC721ABI,
+    functionName: "getApproved",
+    args: [nft?.tokenId], // NFT 的 tokenId
+  });
 
   // TODO 查询NFT是否已经授权给市场合约
 
@@ -196,14 +202,22 @@ export function useWriteApproveTx(nft: NFTInfo | null) {
     isConfirmed,
     isApproved: approveTo === mkt?.address,
     sendTx: () => {
+        if (!mkt?.address || !nft?.ca) return;
       // TODO 写合约：调用NFT合约，将 NFT 授权给市场合约
       // https://wagmi.sh/react/guides/write-to-contract#_4-hook-up-the-usewritecontract-hook
+      writeContract({
+        address: nft.ca as Address,
+        abi: ERC721ABI,
+        functionName: "approve",
+        args: [mkt.address, nft.tokenId], // 授权给市场合约
+      });
     },
   };
 }
 
 export function useMarketContract() {
   const { chainId } = useAccount();
+  console.log("chainId = ", chainId);
   return chainId
     ? {
         address: PROTOCOL_CONFIG[chainId].rentoutMarket,

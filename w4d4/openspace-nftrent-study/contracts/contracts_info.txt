@@ -1,0 +1,18 @@
+factory
+0xFb8a9FEA59F7c54B33047b0f43F2CeFf75E6C02A
+
+DLNFT
+0xC4349cd94B1f1e0a7EdAe56C4A485E2C2A62B490
+
+GRT query endpoint:
+https://api.studio.thegraph.com/query/93114/nftrental/v0.0.6
+
+NFT Market:
+
+Deployer: 0xb25FeDED22519Ae27CEE41de48a10Be889D4CBfb
+Deployed to: 0x5DCe9D56EF2981F72dc685268c3F84dB65C1e5C5
+Transaction hash: 0x8c202b698b25469aef32e53be032c6c776910480e0b0848871eb3ec46b1ee63e
+
+
+
+

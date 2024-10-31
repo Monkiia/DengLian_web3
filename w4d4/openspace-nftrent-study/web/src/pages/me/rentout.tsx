@@ -1,5 +1,11 @@
 import _ from "lodash";
 import { useState, FormEvent, useRef } from "react";
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 import classNames from "classnames";
 import { toast } from "react-toastify";
 
@@ -9,7 +15,7 @@ import Link from "next/link";
 import SelectNFT from "@/components/nft/SelectNFT";
 import { NFTInfo, RentoutOrderMsg } from "@/types";
 import { useUserNFTs, useWriteApproveTx } from "@/lib/fetch";
-import { useAccount } from "wagmi";
+import { useAccount, useSignTypedData } from "wagmi";
 
 import { signTypedData, getAccount } from "@wagmi/core";
 import { config, eip721Types, PROTOCOL_CONFIG, wagmiConfig } from "@/config";
@@ -57,6 +63,10 @@ export default function Rentout() {
   const handleSubmitListing = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedNft) return;
+    if (!window.ethereum) {
+      console.error("Ethereum provider not found");
+      return;
+    }
 
     setIsLoading(true);
 
@@ -77,25 +87,69 @@ export default function Rentout() {
       };
       console.log(order);
       const response = await fetch("/api/listing", {
-        maker: userWallet!,
-        nft_ca: selectedNft.ca,
-        token_id: BigInt(selectedNft.tokenId),
-        daily_rent: parseUnits(dailyRentRef.current!.value, 18),
-        max_rental_duration: BigInt(
-          Number(maxRentalDurationRef.current!.value) * oneday
-        ),
-        min_collateral: parseUnits(collateralRef.current!.value, 18),
-        list_endtime: BigInt(
-          Math.ceil(Date.now() / 1000) +
-            Number(listLifetimeRef.current!.value) * oneday
-        ),
-      } as RentoutOrderMsg;
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          maker: userWallet!,
+          nft_ca: selectedNft.ca,
+          token_id: BigInt(selectedNft.tokenId),
+          daily_rent: parseUnits(dailyRentRef.current!.value, 18),
+          max_rental_duration: BigInt(
+            Number(maxRentalDurationRef.current!.value) * oneday
+          ),
+          min_collateral: parseUnits(collateralRef.current!.value, 18),
+          list_endtime: BigInt(
+            Math.ceil(Date.now() / 1000) +
+              Number(listLifetimeRef.current!.value) * oneday
+          ),
+        }),
+      });
 
       console.log("info:", chainId, PROTOCOL_CONFIG[chainId!].domain);
 
-      // TODO 请求钱包签名，获得签名信息
-      const signature = "0x0000...0000";
+      const types = {
+        RentoutOrder: [
+          { name: "maker", type: "address" },
+          { name: "nft_ca", type: "address" },
+          { name: "token_id", type: "uint256" },
+          { name: "daily_rent", type: "uint256" },
+          { name: "max_rental_duration", type: "uint256" },
+          { name: "min_collateral", type: "uint256" },
+          { name: "list_endtime", type: "uint256" },
+        ],
+      };
 
+      //请求钱包签名，获得签名信息
+
+      const message = {
+        maker: userWallet,
+        nft_ca: selectedNft.ca,
+        token_id: BigInt(selectedNft.tokenId),
+        daily_rent: parseUnits(dailyRentRef.current!.value, 18),
+        max_rental_duration: BigInt(Number(maxRentalDurationRef.current!.value) * oneday),
+        min_collateral: parseUnits(collateralRef.current!.value, 18),
+        list_endtime: BigInt(
+          Math.ceil(Date.now() / 1000) +
+          Number(listLifetimeRef.current!.value) * oneday
+        ),
+      };
+
+      const domain = PROTOCOL_CONFIG[chainId!].domain;
+      const signature = await window.ethereum.request({
+        method: "eth_signTypedData_v4",
+        params: [
+          userWallet,
+          JSON.stringify({
+            domain,
+            types,
+            primaryType: "RentoutOrder",
+            message,
+          }),
+        ],
+      });
+  
       console.log("signature", signature);
 
       const res = await fetch("/api/user/rentout", {
@@ -112,6 +166,7 @@ export default function Rentout() {
       });
       if (res.ok) {
         const data = await res.json();
+        console.log("Data=", data);
         if (data.error) {
           throw new Error(data.error);
         }
@@ -123,6 +178,7 @@ export default function Rentout() {
         position: "bottom-center",
         className: "min-w-full",
       });
+      console.error("Signature Error:", error);
     } finally {
       setIsLoading(false);
     }

@@ -39,6 +39,7 @@ db.serialize(() => {
     (err) => {
       // Error handling for table creation
       if (err) {
+        console.log("I am trying to create a table");
         return console.error(err.message);
       }
       console.log("Created orders table");

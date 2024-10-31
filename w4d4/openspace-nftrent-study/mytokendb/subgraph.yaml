@@ -5,12 +5,12 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: MT
+    name: NFT
     network: sepolia
     source:
-      address: "0x190873386803Db026fd185936Dbf2A6E81457810"
-      abi: MT
-      startBlock: 5789746
+      address: "0xC4349cd94B1f1e0a7EdAe56C4A485E2C2A62B490"
+      abi: NFT
+      startBlock: 6982434
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -19,34 +19,10 @@ dataSources:
         - Approval
         - Transfer
       abis:
-        - name: MT
-          file: ./abis/MT.json
+        - name: NFT
+          file: ./abis/NFT.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: Transfer(indexed address,indexed address,uint256)
+        - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/mt.ts
-  - kind: ethereum
-    name: ZK01
-    network: sepolia
-    source:
-      address: "0x0a5B53232685B8291255C3EA2e6D30987143F2e8"
-      abi: MT
-      startBlock: 5781163
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - Approval
-        - Transfer
-      abis:
-        - name: MT
-          file: ./abis/MT.json
-      eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/mt.ts
+      file: ./src/NFT.ts
+   

@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // const ADMIN_PWD = "openspace@s2";
 
-export default async function handler(
+export default async function setupHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -21,7 +21,7 @@ export default async function handler(
     const result = await sql`CREATE TABLE IF NOT EXISTS rentout_orders (
         id SERIAL PRIMARY KEY,
         chain_id INTEGER NOT NULL,
-        taker TEXT,
+        maker TEXT,
         nft_ca TEXT,
         token_url TEXT,
         token_name TEXT,
@@ -37,32 +37,4 @@ export default async function handler(
   } catch (error) {
     return res.status(500).json({ error: error });
   }
-}
-
-// 存储订单信息
-export async function saveOrder(
-  chainId: number,
-  order: RentoutOrderMsg,
-  nft: NFTInfo,
-  signature: string
-) {
-  console.log("Chain ID:", chainId);
-  console.log("Order:", order);
-  console.log("NFT:", nft);
-  // TODO: 验证提交的订单信息是否合法
-  // 先删除已存在的记录
-  await sql`delete from rentout_orders where chain_id = ${chainId} and nft_ca = ${
-    order.nft_ca
-  } and token_id = ${order.token_id.toString()}`;
-
-  // 插入新记录
-  return sql`insert into rentout_orders (chain_id, maker, nft_ca, token_id, max_rental_duration, daily_rent, min_collateral, list_endtime,token_url,token_name,signature) 
-   values (${chainId}, ${order.maker}, ${
-    order.nft_ca
-  }, ${order.token_id.toString()}, 
-    ${order.max_rental_duration.toString()}, 
-    ${order.daily_rent.toString()}, 
-    ${order.min_collateral.toString()},
-    ${order.list_endtime.toString()},${nft.tokenURL},${nft.name}, ${signature})
-   `;
 }

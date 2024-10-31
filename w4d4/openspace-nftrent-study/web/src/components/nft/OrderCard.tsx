@@ -45,6 +45,7 @@ export default function OrderCard(props: { order: RentoutOrderEntry }) {
     e.preventDefault();
 
     //TODO: 写合约，执行Borrow 交易
+    console.log("哈哈 写点东西");
   };
 
   return (

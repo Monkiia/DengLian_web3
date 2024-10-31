@@ -216,7 +216,7 @@ export function useWriteApproveTx(nft: NFTInfo | null) {
 }
 
 export function useMarketContract() {
-  const { chainId } = useAccount();
+  var chainId = sepolia.id;
   console.log("chainId = ", chainId);
   return chainId
     ? {

@@ -1,3 +1,12 @@
+Vercel Website Link:
+
+https://deng-lian-web3-nhjb.vercel.app/
+
+Part I: Offline Listing implementation done. https://deng-lian-web3-nhjb.vercel.app/mkt
+![listing_details](https://brown-gigantic-magpie-337.mypinata.cloud/ipfs/QmdwjE7PUM8wPL1RNVd6fR3Uu3wPaxsfWjHq2KZgxh8hd3)
+Part II: finish borrow logic, TBD.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

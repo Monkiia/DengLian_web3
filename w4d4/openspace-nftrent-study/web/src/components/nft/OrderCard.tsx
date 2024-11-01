@@ -5,7 +5,7 @@ import { LOADIG_IMG_URL, DEFAULT_NFT_IMG_URL, PROTOCOL_CONFIG } from "@/config";
 import { useEffect, useState } from "react";
 import { NFTInfo, RentoutOrderEntry, RentoutOrderMsg } from "@/types";
 import { useFetchNFTMetadata, useMarketContract } from "@/lib/fetch";
-import { formatUnits } from "viem";
+import { formatUnits, http } from "viem";
 import {
   type BaseError,
   useAccount,
@@ -13,7 +13,9 @@ import {
   useWriteContract,
 } from "wagmi";
 import { Address } from "viem";
-import { ERC721ABI, marketABI } from "@/lib/abi";
+import { ERC721ABI, localMarketABI, marketABI } from "@/lib/abi";
+import { createWalletClient, custom } from "viem";
+import { sepolia } from "viem/chains";
 
 export default function OrderCard(props: { order: RentoutOrderEntry }) {
   const { chainId } = useAccount();
@@ -43,10 +45,11 @@ export default function OrderCard(props: { order: RentoutOrderEntry }) {
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({ hash });
 
+  const mkt = useMarketContract();
+  const collateral = BigInt(order.min_collateral);
   const handleOpen = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const mkt = useMarketContract();
-    const collateral = BigInt(order.min_collateral);
+
     if (!mkt?.address || !nft?.ca) return;
     console.log("nft info = ", nft);
     console.log("Order info = ", order);
@@ -63,9 +66,9 @@ export default function OrderCard(props: { order: RentoutOrderEntry }) {
           nft_ca: order.nft_ca,
           token_id: BigInt(order.token_id),
           daily_rent: BigInt(order.daily_rent),
-          max_rental_duration: order.max_rental_duration,
+          max_rental_duration: BigInt(order.max_rental_duration),
           min_collateral: BigInt(order.min_collateral),
-          list_endtime: order.list_endtime,
+          list_endtime: BigInt(order.list_endtime),
         },
         order.signature,
       ],

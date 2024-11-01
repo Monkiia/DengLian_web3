@@ -58,9 +58,9 @@ export const PROTOCOL_CONFIG = {
       name: "RenftMarket",
       version: "1",
       chainId: Number(sepolia.id),
-      verifyingContract: "0x5DCe9D56EF2981F72dc685268c3F84dB65C1e5C5", // 替换为实际部署的合约地址
+      verifyingContract: "0xb7ce8bFF2867F6CF05c1351AE585207Dbd58eF46", // 替换为实际部署的合约地址
     },
-    rentoutMarket: "0x5DCe9D56EF2981F72dc685268c3F84dB65C1e5C5", // NFT 出租市场的实际合约地址
+    rentoutMarket: "0xb7ce8bFF2867F6CF05c1351AE585207Dbd58eF46", // NFT 出租市场的实际合约地址
   },
 } as const;
 

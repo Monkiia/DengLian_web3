@@ -23,6 +23,7 @@ import { parseUnits } from "viem";
 
 export default function Rentout() {
   const nftResp = useUserNFTs();
+  const { signTypedDataAsync } = useSignTypedData();
   const { address: userWallet, chainId } = useAccount();
 
   const [selectedNft, setSelectedNft] = useState<NFTInfo | null>(null);
@@ -80,17 +81,18 @@ export default function Rentout() {
       const order = {
         maker: userWallet!,
         nft_ca: selectedNft.ca,
-        token_id: selectedNft.tokenId,
-        daily_rent: parseUnits(dailyRentRef.current!.value, 18),
+        token_id: BigInt(selectedNft.tokenId), // Convert to BigInt
+        daily_rent: BigInt(parseUnits(dailyRentRef.current!.value, 18).toString()), // Convert to BigInt
         max_rental_duration: BigInt(
           Number(maxRentalDurationRef.current!.value) * oneday
-        ),
-        min_collateral: parseUnits(collateralRef.current!.value, 18),
+        ), // Ensure BigInt
+        min_collateral: BigInt(parseUnits(collateralRef.current!.value, 18).toString()), // Convert to BigInt
         list_endtime: BigInt(
           Math.ceil(Date.now() / 1000) +
-            Number(listLifetimeRef.current!.value) * oneday
-        ),
+          Number(listLifetimeRef.current!.value) * oneday
+        ), // Ensure BigInt
       };
+      
       console.log(order);
       const response = await fetch("/api/listing", {
         method: "POST",
@@ -122,30 +124,40 @@ export default function Rentout() {
       const message = {
         maker: userWallet,
         nft_ca: selectedNft.ca,
-        token_id: BigInt(selectedNft.tokenId),
-        daily_rent: parseUnits(dailyRentRef.current!.value, 18),
-        max_rental_duration: BigInt(Number(maxRentalDurationRef.current!.value) * oneday),
-        min_collateral: parseUnits(collateralRef.current!.value, 18),
+        token_id: BigInt(selectedNft.tokenId), // Ensure token_id is BigInt
+        daily_rent: BigInt(parseUnits(dailyRentRef.current!.value, 18).toString()), // Convert to BigInt
+        max_rental_duration: BigInt(Number(maxRentalDurationRef.current!.value) * oneday), // Ensure BigInt
+        min_collateral: BigInt(parseUnits(collateralRef.current!.value, 18).toString()), // Convert to BigInt
         list_endtime: BigInt(
           Math.ceil(Date.now() / 1000) +
           Number(listLifetimeRef.current!.value) * oneday
-        ),
+        ), // Ensure BigInt
       };
+      
 
       const domain = PROTOCOL_CONFIG[chainId!].domain;
-      const signature = await window.ethereum.request({
-        method: "eth_signTypedData_v4",
-        params: [
-          userWallet,
-          JSON.stringify({
-            domain,
-            types,
-            primaryType: "RentoutOrder",
-            message,
-          }),
-        ],
-      });
+      const signature = await signTypedDataAsync({
+           domain: domain,
+           types: types,
+           primaryType: "RentoutOrder",
+           message: message,
+          });
   
+          // Note: this method is should follow
+          // https://docs.metamask.io/wallet/reference/json-rpc-methods/eth_signtypeddata_v4/
+          // const signature = await window.ethereum.request({
+          //   method: "eth_signTypedData_v4",
+          //   params: [
+          //     userWallet,
+          //     JSON.stringify({
+          //       domain,
+          //       types,
+          //       primaryType: "RentoutOrder",
+          //       message,
+          //     }),
+          //   ],
+          // });
+
       console.log("signature", signature);
 
       const res = await fetch("/api/user/rentout", {

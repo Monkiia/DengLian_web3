@@ -7,9 +7,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
-const SECONDS_IN_A_DAY = 86400;
-const listEndtimeInDays = parseInt(listLifetimeRef.current?.value || "0", 10);
-
 /**
  * @title RenftMarket
  * @dev NFT租赁市场合约

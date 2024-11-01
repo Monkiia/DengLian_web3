@@ -2,17 +2,22 @@ Vercel Website Link:
 
 https://deng-lian-web3-nhjb.vercel.app/
 
-Part I: Offline Listing implementation done. https://deng-lian-web3-nhjb.vercel.app/mkt
+### Part I: Offline Listing  
+https://deng-lian-web3-nhjb.vercel.app/mkt
 ![listing_details](https://brown-gigantic-magpie-337.mypinata.cloud/ipfs/QmdwjE7PUM8wPL1RNVd6fR3Uu3wPaxsfWjHq2KZgxh8hd3)
 
 
-Part II: finish borrow logic, 
-we have offline list,
-and online buy
+### Part II: borrow logic, 
+we have offline list, and online buy
 
 https://sepolia.etherscan.io/tx/0x54752b6d136a40504f45b337c3570c6225456f1cd4dd04ee907f8705c43e177e
 
-Part III: detailed rental (deduct eth every day) was not implemented, will do it when I have time.
+### Demo video
+https://drive.google.com/file/d/1t1JeeyVJMLnEhcM5wOsMP__1rxcj7p0E/view?usp=sharing
+
+### Part III: detailed rental (deduct eth every day) 
+
+was not implemented, will do it when I have time.
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

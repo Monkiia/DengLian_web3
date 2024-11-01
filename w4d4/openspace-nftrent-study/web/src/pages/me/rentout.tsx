@@ -81,10 +81,15 @@ export default function Rentout() {
         maker: userWallet!,
         nft_ca: selectedNft.ca,
         token_id: selectedNft.tokenId,
-        daily_rent: dailyRentRef.current?.value,
-        max_rental_duration: maxRentalDurationRef.current?.value,
-        min_collateral: collateralRef.current?.value,
-        list_endtime: listLifetimeRef.current?.value,
+        daily_rent: parseUnits(dailyRentRef.current!.value, 18),
+        max_rental_duration: BigInt(
+          Number(maxRentalDurationRef.current!.value) * oneday
+        ),
+        min_collateral: parseUnits(collateralRef.current!.value, 18),
+        list_endtime: BigInt(
+          Math.ceil(Date.now() / 1000) +
+            Number(listLifetimeRef.current!.value) * oneday
+        ),
       };
       console.log(order);
       const response = await fetch("/api/listing", {
@@ -93,18 +98,7 @@ export default function Rentout() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          maker: userWallet!,
-          nft_ca: selectedNft.ca,
-          token_id: BigInt(selectedNft.tokenId),
-          daily_rent: parseUnits(dailyRentRef.current!.value, 18),
-          max_rental_duration: BigInt(
-            Number(maxRentalDurationRef.current!.value) * oneday
-          ),
-          min_collateral: parseUnits(collateralRef.current!.value, 18),
-          list_endtime: BigInt(
-            Math.ceil(Date.now() / 1000) +
-              Number(listLifetimeRef.current!.value) * oneday
-          ),
+          ...order,
           chainId: chainId,
         }),
       });

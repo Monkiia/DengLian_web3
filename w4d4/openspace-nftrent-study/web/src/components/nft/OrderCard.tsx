@@ -4,7 +4,7 @@ import _ from "lodash";
 import { LOADIG_IMG_URL, DEFAULT_NFT_IMG_URL, PROTOCOL_CONFIG } from "@/config";
 import { useEffect, useState } from "react";
 import { NFTInfo, RentoutOrderEntry, RentoutOrderMsg } from "@/types";
-import { useFetchNFTMetadata } from "@/lib/fetch";
+import { useFetchNFTMetadata, useMarketContract } from "@/lib/fetch";
 import { formatUnits } from "viem";
 import {
   type BaseError,
@@ -12,6 +12,8 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { Address } from "viem";
+import { ERC721ABI, marketABI } from "@/lib/abi";
 
 export default function OrderCard(props: { order: RentoutOrderEntry }) {
   const { chainId } = useAccount();
@@ -43,9 +45,38 @@ export default function OrderCard(props: { order: RentoutOrderEntry }) {
 
   const handleOpen = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const mkt = useMarketContract();
+    const collateral = BigInt(order.min_collateral);
+    if (!mkt?.address || !nft?.ca) return;
+    console.log("nft info = ", nft);
+    console.log("Order info = ", order);
+    try {
+    // TODO 写合约：调用NFT合约，将 NFT 授权给市场合约
+    // https://wagmi.sh/react/guides/write-to-contract#_4-hook-up-the-usewritecontract-hook
+    const txHash = writeContract({
+      address: mkt.address as Address,
+      abi: mkt.abi,
+      functionName: "borrow",
+      args: [
+        {
+          maker: order.maker,
+          nft_ca: order.nft_ca,
+          token_id: BigInt(order.token_id),
+          daily_rent: BigInt(order.daily_rent),
+          max_rental_duration: order.max_rental_duration,
+          min_collateral: BigInt(order.min_collateral),
+          list_endtime: order.list_endtime,
+        },
+        order.signature,
+      ],
+      value: collateral,
+    });
+    console.log("Transaction sent, awaiting confirmation...");
+    console.log("txHash:", txHash);
+  } catch (error) {
+    console.error("Transaction failed:", error);
+  }
 
-    //TODO: 写合约，执行Borrow 交易
-    console.log("哈哈 写点东西");
   };
 
   return (

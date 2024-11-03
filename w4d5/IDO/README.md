@@ -1,3 +1,14 @@
+## Test Result
+```
+Ran 5 tests for test/IDOContract.sol:TestIDOContract
+[PASS] testEdgeCaseMaxCapExceeded() (gas: 249686)
+[PASS] testFundraisingFailWithRefunds() (gas: 304749)
+[PASS] testFundraisingSuccess() (gas: 476347)
+[PASS] testProjectCancellation() (gas: 203054)
+[PASS] testTokenClaimingWithoutContribution() (gas: 213189)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 4.45ms (2.14ms CPU time)
+```
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**

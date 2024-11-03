@@ -31,3 +31,6 @@
 [submodule "w4d4/openspace-nftrent-study/contracts/lib/openzeppelin-contracts"]
 	path = w4d4/openspace-nftrent-study/contracts/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "w4d5/IDO/lib/forge-std"]
+	path = w4d5/IDO/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

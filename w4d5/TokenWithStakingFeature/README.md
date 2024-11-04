@@ -1,18 +1,20 @@
 ## Test
+
 ```
-Ran 11 tests for test/Staking.t.sol:StakingTest
-[PASS] testClaimRewardsAfterOneDay() (gas: 200513)
-[PASS] testClaimRewardsMultipleDays() (gas: 200588)
-[PASS] testConvertEsRNTAfterUnlock() (gas: 173292)
-[PASS] testConvertEsRNTwithMultipleMaturityDates() (gas: 255371)
-[PASS] testEarlyEsRNTConversionWithPenalty() (gas: 173600)
-[PASS] testMultipleUsersStakeAndClaim() (gas: 337132)
-[PASS] testStake() (gas: 79109)
-[PASS] testUnstake() (gas: 63088)
-[PASS] testUnstakeAfterClaimingRewards() (gas: 162985)
-[PASS] testUnstakeAndPartialClaimRewards() (gas: 256107)
-[PASS] testUnstakePartial() (gas: 82786)
-Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 978.17µs (1.66ms CPU time)
+Ran 12 tests for test/Staking.t.sol:StakingTest
+[PASS] testClaimRewardsAfterOneDay() (gas: 181623)
+[PASS] testClaimRewardsMultipleDays() (gas: 181695)
+[PASS] testConvertEsRNTwithMultipleMaturityDates() (gas: 216748)
+[PASS] testEarlyEsRNTConversionWithPenalty() (gas: 175199)
+[PASS] testLateEsRNTConversionWithPenalty() (gas: 174938)
+[PASS] testMultipleStakesAndThenClaim() (gas: 189070)
+[PASS] testMultipleUsersStakeAndClaim() (gas: 299321)
+[PASS] testStake() (gas: 101449)
+[PASS] testUnstake() (gas: 83536)
+[PASS] testUnstakeAfterClaimingRewards() (gas: 162020)
+[PASS] testUnstakeAndPartialClaimRewards() (gas: 217088)
+[PASS] testUnstakePartial() (gas: 108346)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 1.51ms (2.08ms CPU time)
 ```
 
 

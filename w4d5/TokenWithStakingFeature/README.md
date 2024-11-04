@@ -1,3 +1,21 @@
+## Test
+```
+Ran 11 tests for test/Staking.t.sol:StakingTest
+[PASS] testClaimRewardsAfterOneDay() (gas: 200513)
+[PASS] testClaimRewardsMultipleDays() (gas: 200588)
+[PASS] testConvertEsRNTAfterUnlock() (gas: 173292)
+[PASS] testConvertEsRNTwithMultipleMaturityDates() (gas: 255371)
+[PASS] testEarlyEsRNTConversionWithPenalty() (gas: 173600)
+[PASS] testMultipleUsersStakeAndClaim() (gas: 337132)
+[PASS] testStake() (gas: 79109)
+[PASS] testUnstake() (gas: 63088)
+[PASS] testUnstakeAfterClaimingRewards() (gas: 162985)
+[PASS] testUnstakeAndPartialClaimRewards() (gas: 256107)
+[PASS] testUnstakePartial() (gas: 82786)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 978.17µs (1.66ms CPU time)
+```
+
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**

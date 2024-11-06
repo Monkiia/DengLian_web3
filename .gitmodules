@@ -55,3 +55,6 @@
 [submodule "w5d3/factory/lib/openzeppelin-contracts"]
 	path = w5d3/factory/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "w5d3/factory/lib/openzeppelin-contracts-upgradeable"]
+	path = w5d3/factory/lib/openzeppelin-contracts-upgradeable
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable

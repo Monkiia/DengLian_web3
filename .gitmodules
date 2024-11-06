@@ -52,3 +52,6 @@
 [submodule "w5d3/factory/lib/forge-std"]
 	path = w5d3/factory/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "w5d3/factory/lib/openzeppelin-contracts"]
+	path = w5d3/factory/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts

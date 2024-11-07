@@ -61,3 +61,6 @@
 [submodule "w5d4/multicall_merkletree/lib/forge-std"]
 	path = w5d4/multicall_merkletree/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "w5d4/multicall_merkletree/lib/openzeppelin-contracts"]
+	path = w5d4/multicall_merkletree/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts

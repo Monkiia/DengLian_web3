@@ -67,3 +67,6 @@
 [submodule "w6d1/lib/forge-std"]
 	path = w6d1/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "w6d1/lib/chainlink-brownie-contracts"]
+	path = w6d1/lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts

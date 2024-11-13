@@ -73,3 +73,6 @@
 [submodule "w6d3/Dex/lib/forge-std"]
 	path = w6d3/Dex/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "w6d3/Dex/lib/v2-core"]
+	path = w6d3/Dex/lib/v2-core
+	url = https://github.com/Uniswap/v2-core

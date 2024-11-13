@@ -76,3 +76,6 @@
 [submodule "w6d3/Dex/lib/v2-core"]
 	path = w6d3/Dex/lib/v2-core
 	url = https://github.com/Uniswap/v2-core
+[submodule "w6d3/Dex/lib/v2-periphery"]
+	path = w6d3/Dex/lib/v2-periphery
+	url = https://github.com/Uniswap/v2-periphery

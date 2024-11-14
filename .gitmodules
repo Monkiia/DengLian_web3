@@ -79,3 +79,6 @@
 [submodule "w6d3/Dex/lib/v2-periphery"]
 	path = w6d3/Dex/lib/v2-periphery
 	url = https://github.com/Uniswap/v2-periphery
+[submodule "w6d3/Dex/lib/openzeppelin-contracts"]
+	path = w6d3/Dex/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts

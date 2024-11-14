@@ -1,3 +1,15 @@
+## Test
+
+```
+forge test --fork-url http://localhost:8545
+Ran 2 tests for test/MyDexTest.t.sol:MyDexTest
+[PASS] testBuyETHWithRNT() (gas: 154079)
+[PASS] testSellETHForRNT() (gas: 104518)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 36.08ms (1.10ms CPU time)
+```
+
+Only tested positive cases, will add other tests later.
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**

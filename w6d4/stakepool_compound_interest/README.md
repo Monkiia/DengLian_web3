@@ -1,3 +1,17 @@
+## Test
+```
+[PASS] test_ClaimWithZeroRewards() (gas: 87586)
+[PASS] test_MultipleUnstakeWithinBalance() (gas: 103468)
+[PASS] test_ReentrancyProtection() (gas: 259859)
+[PASS] test_RevertInsufficientBalance() (gas: 78930)
+[PASS] test_RevertUnstakeWithoutStake() (gas: 21177)
+[PASS] test_RevertZeroStake() (gas: 20929)
+[PASS] test_RevertZeroUnstake() (gas: 78688)
+[PASS] test_RewardsDistributionMultipleStakers() (gas: 296451)
+[PASS] test_RewardsForSingleStaker() (gas: 189839)
+[PASS] test_StakeUnstakeRewardScenario() (gas: 213501)
+```
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
